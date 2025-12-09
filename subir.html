@@ -6,84 +6,231 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Sube tu proyecto</h1>
-
-  <form id="formProyecto">
-    <div>
-      <label>Título:</label><br />
-      <input type="text" name="titulo" required />
+  <header>
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+      <div>
+        <h1>Repositorio de proyectos</h1>
+        <p>Grado en Desarrollo de Aplicaciones 3D Interactivas y Videojuegos (USAL)</p>
+      </div>
     </div>
 
-    <div>
-      <label>Descripción:</label><br />
-      <textarea name="descripcion" required></textarea>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="subir.html">Sube tu proyecto</a>
+      <a href="admin/admin.html">Panel de administración</a>
+    </nav>
+
+    <hr />
+  </header>
+
+  <main class="main">
+    <h1>Sube tu proyecto al repositorio</h1>
+
+    <div class="card">
+      <h2>Pasos para subir tu proyecto</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      </p>
     </div>
 
-    <div>
-      <label>Asignatura:</label><br />
-      <input type="text" name="asignatura" required />
+    <!-- Formulario de subida de proyecto nuevo -->
+    <div class="card">
+      <h2>Envía tu proyecto</h2>
+
+      <form id="formProyecto">
+        <div>
+          <label for="titulo">Título:</label><br />
+          <input type="text" id="titulo" name="titulo" required />
+        </div>
+
+        <div>
+          <label for="descripcion">Descripción:</label><br />
+          <textarea id="descripcion" name="descripcion" required></textarea>
+        </div>
+
+        <div>
+          <label for="asignatura">Asignatura:</label><br />
+          <input type="text" id="asignatura" name="asignatura" required />
+        </div>
+
+        <div>
+          <label for="autores">Autores (separados por comas):</label><br />
+          <input type="text" id="autores" name="autores" required />
+        </div>
+
+        <div>
+          <label for="enlaceExterno">Enlace externo (itch.io, web, etc.):</label><br />
+          <input type="text" id="enlaceExterno" name="enlaceExterno" />
+        </div>
+
+        <div>
+          <label for="curso">Curso (ej: 3º):</label><br />
+          <input type="text" id="curso" name="curso" />
+        </div>
+
+        <div>
+          <label for="anio">Año de creación del trabajo:</label><br />
+          <input type="number" id="anio" name="anio" min="2000" max="2100" />
+        </div>
+
+        <div>
+          <label for="licencia">Licencia Creative Commons:</label><br />
+          <select id="licencia" name="licencia">
+            <option value="">Selecciona una licencia…</option>
+            <option value="CC BY">CC BY</option>
+            <option value="CC BY-SA">CC BY-SA</option>
+            <option value="CC BY-NC">CC BY-NC</option>
+            <option value="CC BY-NC-SA">CC BY-NC-SA</option>
+            <option value="CC0">CC0 (Dominio público)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="imagenes">Imágenes (sube archivos de imagen):</label><br />
+          <input type="file" id="imagenes" name="imagenes" multiple accept="image/*" />
+          <small>Puedes seleccionar varias imágenes a la vez</small>
+        </div>
+
+        <div>
+          <label for="videos">Videos (sube archivos de video):</label><br />
+          <input type="file" id="videos" name="videos" multiple accept="video/*" />
+          <small>Puedes seleccionar varios videos a la vez</small>
+        </div>
+
+        <div>
+          <label>
+            <input type="checkbox" name="autorizacionLegal" required />
+            Declaro que doy mi autorización para publicar este trabajo en el repositorio y acepto
+            las condiciones de uso y tratamiento de datos.
+          </label>
+        </div>
+
+        <button type="submit">Enviar proyecto</button>
+        <p id="mensaje" style="margin-top: 8px; color: #155724;"></p>
+      </form>
     </div>
 
-    <div>
-      <label>Autores (separados por comas):</label><br />
-      <input type="text" name="autores" required />
+    <!-- Sección de edición o borrado -->
+    <div class="card">
+      <h2>Gestiona tu proyecto publicado</h2>
+      <p>
+        Si tu proyecto ya ha sido aprobado y publicado, puedes editarlo para actualizar la información
+        o solicitar su eliminación del repositorio. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+
+      <div style="margin-bottom: 16px;">
+        <button type="button" id="btnToggleEditar" class="btn-secundario">
+          Quiero editar los datos de mi proyecto
+        </button>
+        <button type="button" id="btnToggleBorrar" class="btn-secundario">
+          Quiero borrar mi proyecto del repositorio
+        </button>
+      </div>
+
+      <!-- Sección de EDICIÓN (oculta inicialmente) -->
+      <div id="seccionEditar" style="display: none; margin-top: 16px;">
+        <div style="background: #f0f0f0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+          <label for="editTituloSearch">Nombre exacto de tu proyecto:</label><br />
+          <input type="text" id="editTituloSearch" placeholder="Escribe el título exactamente" />
+          <button type="button" id="btnCargarProyectoEditar">Buscar proyecto</button>
+          <p id="mensajeEditar" style="font-size: 0.9rem; margin-top: 4px;"></p>
+        </div>
+
+        <form id="formProyectoEditar" style="display: none;">
+          <div>
+            <label for="editTitulo">Título:</label><br />
+            <input type="text" id="editTitulo" name="titulo" />
+          </div>
+
+          <div>
+            <label for="editDescripcion">Descripción:</label><br />
+            <textarea id="editDescripcion" name="descripcion"></textarea>
+          </div>
+
+          <div>
+            <label for="editAsignatura">Asignatura:</label><br />
+            <input type="text" id="editAsignatura" name="asignatura" />
+          </div>
+
+          <div>
+            <label for="editAutores">Autores (separados por comas):</label><br />
+            <input type="text" id="editAutores" name="autores" />
+          </div>
+
+          <div>
+            <label for="editEnlaceExterno">Enlace externo:</label><br />
+            <input type="text" id="editEnlaceExterno" name="enlaceExterno" />
+          </div>
+
+          <div>
+            <label for="editCurso">Curso:</label><br />
+            <input type="text" id="editCurso" name="curso" />
+          </div>
+
+          <div>
+            <label for="editAnio">Año de creación:</label><br />
+            <input type="number" id="editAnio" name="anio" min="2000" max="2100" />
+          </div>
+
+          <div>
+            <label for="editLicencia">Licencia Creative Commons:</label><br />
+            <select id="editLicencia" name="licencia">
+              <option value="">Selecciona una licencia…</option>
+              <option value="CC BY">CC BY</option>
+              <option value="CC BY-SA">CC BY-SA</option>
+              <option value="CC BY-NC">CC BY-NC</option>
+              <option value="CC BY-NC-SA">CC BY-NC-SA</option>
+              <option value="CC0">CC0 (Dominio público)</option>
+            </select>
+          </div>
+
+          <div>
+            <label>
+              <input type="checkbox" name="autorizacionLegal" />
+              Declaro que doy mi autorización para mantener este trabajo en el repositorio.
+            </label>
+          </div>
+
+          <button type="button" id="btnGuardarCambios">Enviar solicitud de modificación</button>
+          <p id="mensajeGuardar" style="margin-top: 8px; color: #155724;"></p>
+        </form>
+      </div>
+
+      <!-- Sección de BORRADO (oculta inicialmente) -->
+      <div id="seccionBorrar" style="display: none; margin-top: 16px;">
+        <div style="background: #f0f0f0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+          <label for="borrarTituloSearch">Nombre exacto de tu proyecto:</label><br />
+          <input type="text" id="borrarTituloSearch" placeholder="Escribe el título exactamente" />
+          <button type="button" id="btnCargarProyectoBorrar">Buscar proyecto</button>
+          <p id="mensajeBorrarBusqueda" style="font-size: 0.9rem; margin-top: 4px;"></p>
+        </div>
+
+        <div id="tarjetaProyectoBorrar" style="display: none; margin-bottom: 12px;">
+          <div class="card">
+            <h3 id="borrarTituloProyecto"></h3>
+            <p><strong>Asignatura:</strong> <span id="borrarAsignatura"></span></p>
+            <p><strong>Autores:</strong> <span id="borrarAutores"></span></p>
+            <p><strong>Descripción:</strong> <span id="borrarDescripcion"></span></p>
+          </div>
+
+          <button type="button" id="btnConfirmarBorrado">Quiero borrar mi proyecto</button>
+          <p id="mensajeBorrar" style="margin-top: 8px; color: #155724;"></p>
+        </div>
+      </div>
     </div>
+  </main>
 
-    <div>
-      <label>Enlace externo (itch.io, web, etc.):</label><br />
-      <input type="url" name="enlaceExterno" />
-    </div>
-
-    <div>
-      <label>Curso (ej: 3º):</label><br />
-      <input type="text" name="curso" />
-    </div>
-
-    <div>
-  <label>Año de creación del trabajo:</label><br />
-  <input type="number" name="anio" min="2000" max="2100" />
-
-</div>
-
-<div>
-  <label>Licencia Creative Commons:</label><br />
-  <select name="licencia">
-    <option value="">Selecciona una licencia…</option>
-    <option value="CC BY">CC BY</option>
-    <option value="CC BY-SA">CC BY-SA</option>
-    <option value="CC BY-NC">CC BY-NC</option>
-    <option value="CC BY-NC-SA">CC BY-NC-SA</option>
-    <option value="CC0">CC0 (Dominio público)</option>
-  </select>
-</div>
-
-<div>
-  <label>
-    <input type="checkbox" name="autorizacionLegal" required />
-    Declaro que doy mi autorización para publicar este trabajo en el repositorio y acepto las condiciones de uso y tratamiento de datos.
-  </label>
-</div>
-
-    <button type="submit">Enviar proyecto</button>
-  </form>
-
-  <p id="mensaje"></p>
+  <footer class="footer">
+    <h3>Política de privacidad y tratamiento de datos</h3>
+    <p>
+      Aquí puedes incluir un resumen de la política de privacidad del repositorio y un enlace al
+      documento completo.
+    </p>
+  </footer>
 
   <script src="subir.js"></script>
-
-  <hr />
-
-<h2>Editar o eliminar proyecto existente</h2>
-
-<div>
-  <label>Título del proyecto:</label><br />
-  <input type="text" id="editTitulo" placeholder="Escribe el título exactamente" />
-</div>
-
-<button type="button" id="btnCargarProyecto">Cargar datos</button>
-<button type="button" id="btnGuardarCambios">Guardar cambios</button>
-<button type="button" id="btnBorrarProyecto">Eliminar proyecto</button>
-
-
 </body>
 </html>
